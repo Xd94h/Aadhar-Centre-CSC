@@ -1,0 +1,35 @@
+[23-May-2024 13:24:48 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_466463%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[23-May-2024 20:01:17 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_472762%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[27-May-2024 11:32:22 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_215468%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[27-May-2024 16:53:51 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_423127%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[27-May-2024 16:53:56 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_423127%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[27-May-2024 19:36:01 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_509603%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[27-May-2024 19:56:29 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_498130%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[27-May-2024 19:56:39 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_498130%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[27-May-2024 19:56:46 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_498130%26cu%3D&amp;choe=UTF-8): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/rkprintp/public_html/qr/pay.php on line 12
+[10-Jun-2024 12:57:50 Asia/Kolkata] PHP Warning:  file_get_contents(https://...@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_818324%26cu%3D&amp;choe=UTF-8): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/rsrahedt/public_html/qr/pay.php on line 12
+[10-Jun-2024 12:57:50 Asia/Kolkata] PHP Stack trace:
+[10-Jun-2024 12:57:50 Asia/Kolkata] PHP   1. {main}() /home/rsrahedt/public_html/qr/pay.php:0
+[10-Jun-2024 12:57:50 Asia/Kolkata] PHP   2. file_get_contents($filename = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&chco=474747&chl=upi%3A%2F%2Fpay%3Fpa%3Drajak637224@okaxis%26pn%3DRK-PRINT-PORTAL%26am%3D199%26tn%3Dalam_818324%26cu%3D&choe=UTF-8') /home/rsrahedt/public_html/qr/pay.php:12
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP Warning:  Undefined variable $amount in /home/rsrahedt/public_html/qr/pay.php on line 58
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP Stack trace:
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP   1. {main}() /home/rsrahedt/public_html/qr/pay.php:0
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP Warning:  Undefined variable $base64 in /home/rsrahedt/public_html/qr/pay.php on line 64
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP Stack trace:
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP   1. {main}() /home/rsrahedt/public_html/qr/pay.php:0
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP Warning:  Undefined variable $phone in /home/rsrahedt/public_html/qr/pay.php on line 93
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP Stack trace:
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP   1. {main}() /home/rsrahedt/public_html/qr/pay.php:0
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP Warning:  Undefined variable $order_id in /home/rsrahedt/public_html/qr/pay.php on line 94
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP Stack trace:
+[10-Jun-2024 12:57:57 Asia/Kolkata] PHP   1. {main}() /home/rsrahedt/public_html/qr/pay.php:0
