@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+</head>
+<body>
+
+
+
+	<div>
+	<div>
+		<div>
+<HTML>
+<HEAD>
+
+</HEAD>
+
+<BODY >
+          
+</BODY>
+</HTML>
+
+		</div>
+	</div>
+	<div>
+		<div>
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Error</title>
+
+	<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/core.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	
+	<script type="text/javascript" src="/paam/assets/js/core/libraries/jquery.min.js"></script>
+	 
+	 
+	 
+	 
+	<script type="text/javascript">
+	 	$(document).ready(function()
+		{
+	 		window.history.pushState(null, "", window.location.href);
+	 		
+	 		window.onpopstate = function()
+	 		{
+	 			 window.history.pushState(null, "", window.location.href);
+	 		};
+		});
+	</script>
+</head>	 
+<body class="layout-boxed">
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-boxed">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
+			</div>		
+		</div>
+	</div>
+	<!-- /main navbar -->
+	
+	<!-- Page header -->
+	<div class="page-header">
+		<div class="breadcrumb-line breadcrumb-line-wide">
+			<div class="breadcrumb-boxed">
+				<ul class="breadcrumb">
+					<li><a href="requestAndDownloadEPAN.html"><i class="icon-home2 position-left"></i> Home</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="page-header-content">
+			<div class="page-title">
+				<h1>
+					<span class="text-semibold" id="reqEpanTitle">Download e-PAN Card</span>
+				</h1>
+			</div>			
+			<hr class="custom">
+		</div>
+	</div>
+	<!-- /page header -->
+	
+	<!-- Page container -->
+	<div class="page-container">
+		<!-- Page content -->
+		<div class="page-content">
+			<!-- Main content -->
+			<div class="content-wrapper">
+				<!-- styling -->
+				<div class="light-bg">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group text-center">
+								<br><br><br><br><h5 class="panel-title">Invalid Request.</h5><br><br><br><br>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /styling -->
+			</div>
+			<!-- /Main content -->
+		</div>
+		<!-- /Page content -->
+	</div>
+	<!-- /Page container -->
+	
+	<!-- Footer -->
+	<div class="center m-b-0 back"><a href="#top" onclick="$('html,body').animate({scrollTop:0},'slow');return false;"><i class="icon-arrow-up-left2"></i></a></div>
+	<div class="footer text-muted">
+		Copyright &copy; 2016  |  Protean eGov Technologies Limited (Protean e-Gov ).<br>Page last modified on: February 26, 2016 </a>
+	</div>
+	<!-- /footer -->
+		
+	<!-- Core JS files -->
+	<script type="text/javascript" src="/assets/js/plugins/loaders/pace.min.js"></script>
+	<script type="text/javascript" src="/assets/js/core/libraries/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/loaders/blockui.min.js"></script>
+	<!-- /core JS files -->
+	<script type="text/javascript" src="/assets/js/core/app.js"></script>	
+	<!-- /theme JS files -->
+	<!-- application js file -->
+
+	
+</body>
+</html>
+		</div>
+	</div>
+	<div>
+		<div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
