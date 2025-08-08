@@ -8,7 +8,8 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h5 class="mb-0">All AAHDAAR PDF ADMIN LIST</h5>
+                        <h5 class="mb-0">All Pan No Search List </h5>
+                        <h6 class="mb-0 text-uppercase">Search PAN No <a href="pan_details.php" target="_blank" class="btn btn-success">Pan Card Details</a></h6>
                     </div>
                    
                 </div>
@@ -18,21 +19,18 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="text-center">SL.</th>
-                                <th class="text-center">Appliedby</th>
-                                <th class="text-center">Retailer No</th>
-                                <th class="text-center">Apply Date</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">Aadhaar No</th>
-                               <th class="text-center">Date of Birth</th>
-                               
-                                
-                                <th class="text-center">Action</th>
+                                 <th class="text-center">Username</th>
+                                <th class="text-center">Application No</th>
+                                <th class="text-center">Apply date</th>
+                                <th class="text-center">Aadhar No</th>
+                                <th class="text-center">Pan No</th>
+                                <th class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                            
 <?php
-$res = mysqli_query($ahk_conn,"SELECT * FROM aadhaar_pdf  ORDER BY id DESC");
+$res = mysqli_query($ahk_conn,"SELECT * FROM instantpan_find   ORDER BY id DESC");
 if(mysqli_num_rows($res)>0){
     $x=0;
     while($data = mysqli_fetch_assoc($res)){
@@ -40,42 +38,27 @@ if(mysqli_num_rows($res)>0){
         ?>
         <tr>
             <td class="text-center"><?= $x;?></td>
-            <td class="text-center"><?= $data['appliedby'];?></td>
-            <td class="text-center"><?= $data['ret_wp_no'];?></td>
-            <td class="text-center"><?= $data['apply_date'];?></td>
-            <td class="text-center">
-                  <div class="ms-2">
-                        <h6 class="mb-1 font-14"><?php echo strtoupper($data['name']); ?></h6>
-                    </div>
-            </td>
-        
-            <td class="text-center"><?php echo strtoupper($data['aadhaar_no']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['dob']); ?></td>
+              <td>
+                                         <span class="badge rounded-pill bg-light text-dark">
+                    <strong><?php echo  $data['username']; ?></strong>
+                    </span> </td>
+            <td>
+                                         <span class="badge rounded-pill bg-light text-dark">
+                    <strong><?php echo  $data['application_no']; ?></strong>
+                    </span> </td>
             
-            <td  class="text-center">
-                <?php
-                    if($data['status']=="pending"){
-                        ?>
-                       <div style="width:250px;">
-                        <form method="POST" action="" enctype="multipart/form-data">
-                            <input class="form-control mb-2" type="text"  name="pan_no" required maxlength="12" placeholder="Enter PAN No">
-                            <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
-                            <input class="form-control mb-2" type="file" name="aadhaar_pdf" required>
-                            <button class="btn  px-6 btn-success">Update</button>
-                        </form>
-                       </div>
-                        <?php
-                    }else if($data['status']=="success"){
-                            ?>
-                            <div class="text-center text-success">
-                            <?php echo strtoupper($data['pan_no']); ?>    
-                            <br>
-                                Already Uploaded
-                                <a target="_blank" href="<?php echo $data['pdf_link'] ?>" class="btn btn-sm btn-info">See</a>
-                            </div>
-                            <?php
-                    }
-                ?>
+            <td class="text-center"><?php echo strtoupper($data['date']); ?></td>
+           <td class="text-center"><?php echo strtoupper($data['aadhaar_no']); ?></td>
+                
+                
+            
+            <td class="text-center">
+            <strong><?php echo strtoupper($data['pan_no']); ?></strong>
+               
+            </td>
+             <td class="text-center">
+        <div class="badge rounded-pill bg-light-success text-success w-100">Success
+                        </div>
             </td>
         </tr>
         <?php
@@ -124,7 +107,6 @@ $(function() {
 <script>
 		$(document).ready(function() {
 			$('#example').DataTable();
-            $('#aadh').inputmask();
 		  } );
 	</script>
 	
@@ -138,8 +120,6 @@ $(function() {
 			table.buttons().container()
 				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
 		} );
-
-
 	</script>
 	
 </body>

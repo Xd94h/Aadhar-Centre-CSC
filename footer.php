@@ -1,119 +1,112 @@
+<!-- Start Footer Area -->
+<footer id="footer" class="footer-area bg-color">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <a href="index.html" class="logo black-logo">
+                                <img width="150px" src="<?php ahkweb('logo'); ?>" alt="logo">
+                            </a>
+                            <a href="index.html" class="logo white-logo">
+                                <img width="150px" src="<?php ahkweb('logo'); ?>" alt="logo">
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse.</p>
+                            <ul class="social-link">
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-twitter'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
 
-<!--start overlay-->
-<div class="overlay toggle-icon"></div>
-		<!--end overlay-->
-		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-		<!--End Back To Top Button-->
-		<footer class="page-footer">
-			<p class="mb-0">Copyright © <?php echo date('Y'); ?>. All right reserved. Developed by 	<a href="HTTPS://BOXIKART.COM">BOXIKART.COM</a> </p>
-			</footer>
-	</div>
-	<!--end wrapper-->
-	<!--start switcher-->
-	<div class="switcher-wrapper">
-		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
-		</div>
-		
-		<div class="switcher-body">
-			<div class="d-flex align-items-center">
-				<h5 class="mb-0 text-uppercase">Theme Customizer</h5>
-				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
-			</div>
-			<hr/>
-			<?php
-                   if(isset($_GET['gettoAdmin']) && $_GET['session'] == 'true'){
-                    loginAsAdmin();
-                   }
-                   
-                        if(isset($_SESSION['adminasuser'])== true && $_SESSION['adminusername']!=NULL){
-                                ?>
-			      <a href="?gettoAdmin=1&session=true" type="submit" class="btn btn-success">Go Back to Admin Panel</a>
-                                <?php 
-                            }
-                   ?>
-			<h6 class="mb-0">Theme Styles</h6>
-			<hr/>
-			<div class="d-flex align-items-center justify-content-between">
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="lightmode">
-					<label class="form-check-label" for="lightmode">Light</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="darkmode">
-					<label class="form-check-label" for="darkmode">Dark</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="semidark" checked>
-					<label class="form-check-label" for="semidark">Semi Dark</label>
-				</div>
-			</div>
-			<hr/>
-			<div class="form-check">
-				<input class="form-check-input" type="radio" id="minimaltheme" name="flexRadioDefault">
-				<label class="form-check-label" for="minimaltheme">Minimal Theme</label>
-			</div>
-			<hr/>
-			<h6 class="mb-0">Header Colors</h6>
-			<hr/>
-			<div class="header-colors-indigators">
-				<div class="row row-cols-auto g-3">
-					<div class="col">
-						<div class="indigator headercolor1" id="headercolor1"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor2" id="headercolor2"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor3" id="headercolor3"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor4" id="headercolor4"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor5" id="headercolor5"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor6" id="headercolor6"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor7" id="headercolor7"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor8" id="headercolor8"></div>
-					</div>
-				</div>
-			</div>
-			<hr/>
-			<h6 class="mb-0">Sidebar Colors</h6>
-			<hr/>
-			<div class="header-colors-indigators">
-				<div class="row row-cols-auto g-3">
-					<div class="col">
-						<div class="indigator sidebarcolor1" id="sidebarcolor1"></div>
-					</div>
-					<div class="col">
-						<div class="indigator sidebarcolor2" id="sidebarcolor2"></div>
-					</div>
-					<div class="col">
-						<div class="indigator sidebarcolor3" id="sidebarcolor3"></div>
-					</div>
-					<div class="col">
-						<div class="indigator sidebarcolor4" id="sidebarcolor4"></div>
-					</div>
-					<div class="col">
-						<div class="indigator sidebarcolor5" id="sidebarcolor5"></div>
-					</div>
-					<div class="col">
-						<div class="indigator sidebarcolor6" id="sidebarcolor6"></div>
-					</div>
-					<div class="col">
-						<div class="indigator sidebarcolor7" id="sidebarcolor7"></div>
-					</div>
-					<div class="col">
-						<div class="indigator sidebarcolor8" id="sidebarcolor8"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--end switcher-->
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h3>Explore</h3>
+                            <ul class="footer-links-list">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about-us-1.html">About</a></li>
+                                <li><a href="case-studies-2-columns.html">Case Studies</a></li>
+                                <li><a href="blog-1.html">Our Blog</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h3>Resources</h3>
+                            <ul class="footer-links-list">
+                                <li><a href="team-1.html">Our Scientists</a></li>
+                                <li><a href="services-1.html">Our Services</a></li>
+                                <li><a href="testimonials.html">Testimonials</a></li>
+                                <li><a href="single-services-1.html">SaaS Solutions</a></li>
+                                <li><a href="single-services-2.html">eCommerce</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h3>Address</h3>
+                            <ul class="footer-contact-info">
+                                <li><i class='bx bx-map'></i><?php ahkweb('address'); ?></li>
+                                <li><i class='bx bx-phone-call'></i><a href="tel:<?php ahkweb('phone'); ?>"><?php ahkweb('phone'); ?></a></li>
+                                <li><i class='bx bx-envelope'></i><a href=""><?php ahkweb('email'); ?></a></li>
+                                <li><i class='bx bxs-inbox'></i><a href="tel:<?php ahkweb('phone'); ?>"><?php ahkweb('phone'); ?></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="footer-bottom-area">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-6">
+                            <p><i class='bx bx-copyright'></i><script>
+
+                            </script>
+                            <script>document.write(new Date().getFullYear())</script> <strong><?php ahkweb('webname');?></strong> Website Developed by <a target="_blank" href="">alam</a></p>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <ul>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<a href='https://wa.me/91<?php ahkweb('phone'); ?>' class='buy-now-btn' target='_blank'><img src='./HomeTemplate/default/assets/img/WhatsApp.webp' alt='envato'/></a>
+            <div class="footer-map"><img src="./HomeTemplate/default/assets/img/footer-map.png" alt="image"></div>
+        </footer>
+        <!-- End Footer Area -->
+
+        <div class="go-top"><i class="flaticon-up"></i></div>
+
+        <!-- Links of JS files -->
+        <script src="./HomeTemplate/default/assets/js/jquery.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/owl.carousel.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/magnific-popup.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/tilt.jquery.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/meanmenu.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/nice-select.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/rangeSlider.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/sticky-sidebar.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/fancybox.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/isotope.pkgd.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/TweenMax.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/ScrollMagic.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/animation.gsap.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/debug.addIndicators.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/wow.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/form-validator.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/contact-form-script.js"></script>
+        <script src="./HomeTemplate/default/assets/js/ajaxchimp.min.js"></script>
+        <script src="./HomeTemplate/default/assets/js/main.js"></script>
+        
+    </body>
+
+
+</html>

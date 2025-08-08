@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h5 class="mb-0">Rasan Details TO AADHAAR NO LIST</h5>
+                        <h5 class="mb-0">All COVID 19  PDF LIST</h5>
                     </div>
                    
                 </div>
@@ -18,52 +18,88 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="text-center">SL.</th>
+                                <th class="text-center">Application No</th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Rasan</th>
-                                <th class="text-center">Family aadhaar</th>
-                                <th class="text-center">state</th>
-                                <th class="text-center">District</th>
-                                <th class="text-center">Block</th>
-                                <th class="text-center">Village</th>
+                                <th class="text-center">MOBAIL NO</th>
                                 <th class="text-center">AADHAAR No</th>
+                                <th class="text-center">GENDER</th>
+                                <th class="text-center">Date of Birth</th>
+                                <th class="text-center">Status</th>
                                 <th class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                            
 <?php
-if(isset($_GET['apid'])&& $_GET['track'] =='true'){
-    $apid = base64_decode(getSafe($_GET['apid']));
-    $application_no = getSafe($_GET['apid']); // Application Number base64 Encoded
-        $api_key = $webdata['nsdl_api_key']; // API Key  from https://apizone.in/dashboard/account/api-keys
-
-        $url = 'https://apizone.in/api/v1/services/aadhaar_no/track_no.php?application_no='.$application_no.'&api_key='.$api_key;
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $response;
-        $resdata = json_decode($response,true);
-        if($resdata['status'] == '1'){
-            if(ahkQuery("UPDATE aadhaar_no SET aadhaar_no='".$resdata['aadhaar_no']."', status='success' WHERE application_no='$apid' ")){
-                showAlert('Aadhaar no generated', $resdata['aadhaar_no'],'success');
+if(isset($_GET['track']) && $_GET['track'] =="true" && $_GET['application_no']){
+    // echo "<pre>";
+    // print_r($_GET);
+            $application_no = mysqli_real_escape_string($ahk_conn,$_GET['application_no']);
+            $api_key = $webdata["nsdl_api_key"];
+          
+            $url = 'https://apizone.in/api/v1/services/covid_1_2_dose/track.php?application_no='.$application_no.'&api_key='.$api_key;
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => $url,
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => "",
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => "GET",
+            ));
+            $response = curl_exec($curl);
+            curl_close($curl);
+             $response;
+            $resdata = json_decode($response,true);
+            if($resdata['status'] == 1){
+                $sql = mysqli_query($ahk_conn,"UPDATE covid_1_2_dose SET pdf_link='".$resdata['pdf_link']."', status='success' WHERE application_no='".base64_decode($application_no)."'");
+                if($sql){
+                    ?>
+                <script>
+                    $(function(){
+                        Swal.fire(
+                            '<?php echo $resdata['message']; ?>',
+                            '<?php echo $resdata['pan_no']; ?>',
+                            'success'
+                        )
+                    })
+                    setTimeout(() => {
+                        window.location='covid_1_2_dose_list.php';
+                    }, 1200);
+                </script>
+                    <?php
+                }else{
+                    ?>
+                    <script>
+                      $(function(){
+                         Swal.fire(
+                             ' <?php echo $resdata['message'];?>',
+                             '<?php echo $resdata['pan_no'];?>',
+                             'error'
+                         )
+                     })
+                    </script>
+                     <?php
+                }
+                
             }else{
-                showAlert('Something Went Wrong','','error');
+                ?>
+                <script>
+                  $(function(){
+                     Swal.fire(
+                         'Failed Code > <?php echo $resdata['status'];?>',
+                         '<?php echo $resdata['message'];?>',
+                         'error'
+                     )
+                 })
+                </script>
+                 <?php
             }
-        }else{
-            showAlert($resdata['status'], $resdata['message'],'error');
-        }
+            // API
 }
-$res = mysqli_query($ahk_conn,"SELECT * FROM rasan_to_aadhar_pdf WHERE appliedby='".$udata['phone']."'  ORDER BY id DESC");
+$res = mysqli_query($ahk_conn,"SELECT * FROM covid_1_2_dose WHERE appliedby='".$udata['phone']."'  ORDER BY id DESC");
 if(mysqli_num_rows($res)>0){
     $x=0;
     while($data = mysqli_fetch_assoc($res)){
@@ -71,6 +107,7 @@ if(mysqli_num_rows($res)>0){
         ?>
         <tr>
             <td class="text-center"><?= $x;?></td>
+            <td class="text-center"><?php echo strtoupper($data['application_no']); ?></td>
             <td class="text-center">
                 <div class="d-flex align-items-center">
                     
@@ -79,19 +116,20 @@ if(mysqli_num_rows($res)>0){
                     </div>
                 </div>
             </td>
-            <td class="text-center"><?php echo strtoupper($data['rasan']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['aadhaar']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['state']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['district']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['block']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['village']); ?></td>
+            
+            
+            
+            <td class="text-center"><?php echo strtoupper($data['mobail_no']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['aadhaar_no']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['gender']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['date']); ?></td>
             <td class="text-center"><?php
-            if(!$data['aadhaar_no'] ==NULL){
+            if(!$data['pan_no'] ==NULL){
                 ?>
-                <b><?php echo strtoupper($data['aadhaar_no']); ?></b>
+                <?php echo strtoupper($data['pan_no']); ?>
                 <?php
             }else{
-                echo "Aadhaar Not generated Yet.";
+                echo "Pending....";
             }
             ?></td>
             <td class="text-center">
@@ -99,15 +137,14 @@ if(mysqli_num_rows($res)>0){
                     if($data['status']=="pending"){
                         ?>
                         <div class="badge rounded-pill bg-light-warning text-warning w-100">Pending...
-                        <div class="">
-                        <a href="https://wa.me/917481887848" class="btn btn-success">Check Status</a>
                         </div>
-                        </div>
+                        
                         <?php
                     }else if($data['status']=="success"){
                             ?>
-                             <div class="badge rounded-pill bg-light-success text-success w-100">Success
-                        </div>
+                            <div class="text-center">
+                                <a download="<?php echo $data['pan_no'] ?>" href="<?php echo $data['pdf_link'] ?>" class="btn btn-sm btn-success">Download PDF</a>
+                            </div>
                             <?php
                     }
                 ?>

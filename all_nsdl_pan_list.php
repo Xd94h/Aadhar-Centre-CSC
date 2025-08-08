@@ -1,5 +1,6 @@
 <?php 
 	include('header.php');
+
    ?>
 <!--start page wrapper -->
 <div class="page-wrapper">
@@ -8,7 +9,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h5 class="mb-0">Kafila aadhar Reports</h5>
+                        <h5 class="mb-0">All Users List</h5>
                     </div>
                    
                 </div>
@@ -18,16 +19,12 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="text-center">SL.</th>
-                                <th class="text-center">Appliedby</th>
-                                <th class="text-center">Apply Date</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">FATHER Name</th>
-                                <th class="text-center">MOBILE NO.</th>
-                                <th class="text-center">GMAIL</th>
-                                <th class="text-center">APPLICATION NUMBER</th>
-                                <th class="text-center">DOB</th>
-                                <th class="text-center">ADDRESS</th>
-                                <th class="text-center">AADHAAR PDF</th>
+                                <th class="text-center">Ref Id</th>
+                                <th class="text-center">Applicant Details</th>
+                                <th class="text-center">PAN Mode</th>
+                                <th class="text-center">Gender</th>
+                                <th class="text-center">Status</th>
+                               
                                 
                                 <th class="text-center">Action</th>
                             </tr>
@@ -35,7 +32,7 @@
                         <tbody>
                            
 <?php
-$res = mysqli_query($ahk_conn,"SELECT * FROM pan_card_applications  ORDER BY id DESC");
+$res = mysqli_query($ahk_conn,"SELECT * FROM nsdlekyc WHERE appliedby='".$udata['phone']."' ORDER BY id DESC");
 if(mysqli_num_rows($res)>0){
     $x=0;
     while($data = mysqli_fetch_assoc($res)){
@@ -43,53 +40,56 @@ if(mysqli_num_rows($res)>0){
         ?>
         <tr>
             <td class="text-center"><?= $x;?></td>
-            <td class="text-center"><?= $data['appliedby'];?></td>
-            <td class="text-center"><?= $data['date'];?></td>
+            <td class="text-center"><?= $data['customer_ref_id'];?></td>
+            <td class="text-center">
+                <?php
+                switch($data['title']){
+                    case '1':
+                        echo "Mr/Shri";
+                        break;
+                    case '2':
+                        echo "Mrs/Shrimati";
+                        break;
+                    default:
+                        echo "None";
+
+                } 
+                ?>
+                 <br>
+                <?= $data['first_name'];?> <br>
+                <?= $data['middle_name'];?> <br>
+                <?= $data['last_name'];?> <br>
+
+            </td>
+            <td class="text-center"><?= $data['mode'];?></td>
             <td class="text-center">
                   <div class="ms-2">
-                        <h6 class="mb-1 font-14"><?php echo strtoupper($data['applicant_name']); ?></h6>
+                        <h6 class="mb-1 font-14"><?php echo strtoupper($data['gender']); ?></h6>
                     </div>
             </td>
-            <td class="text-center"><?php echo strtoupper($data['father_name']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['mobile']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['gmail']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['application_no']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['date_of_birth']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['address']); ?></td>
-            <td class="text-center">
-    <?php
-    $aadharPdfPath = $data['aadhar_pdf_path'];
-    $aadharPdfName = basename($aadharPdfPath);
-    ?>
-    <a href="<?php echo $aadharPdfPath; ?>" download="<?php echo $aadharPdfName; ?>">
-        <?php echo strtoupper($aadharPdfName); ?>
-    </a>
-</td>
-            
+        
+            <td class="text-center"><?php 
+                echo strtoupper($data['status']); 
+                 ?></td>
+           
             <td  class="text-center">
-                <?php
-                    if($data['status']=="pending"){
-                        ?>
-                       <div style="width:250px;">
-                        <form method="POST" action="" enctype="multipart/form-data">
-                            <input class="form-control mb-2" type="text" id="aadh" data-inputmask="'mask': '99999999999999'"  name="aadhaar_no" required maxlength="12" placeholder="Enter Aadhaar No">
-                            <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
-                            <input class="form-control mb-2" type="file" name="aadhaar_pdf" required>
-                            <button class="btn  px-6 btn-success">Update</button>
+                <?php 
+                if($data['status'] == 'pending'){
+                    ?>
+                        <div class="mr-12 font-24 ">
+                        
+                        <form method="post" action="<?php echo $data['response_url']; ?>">
+                            <textarea name="encdata" style="display:none"><?php echo $data['encdata']; ?></textarea>
+                            <button title="Process Again" class="text-success bg-light-success" type="submit"><i class='bx bx-refresh'></i></button>
                         </form>
-                       </div>
-                        <?php
-                    }else if($data['status']=="success"){
-                            ?>
-                            <div class="text-center text-success">
-                            <?php echo $data['aadhaar_no']; ?>    
-                            <br>
-                                Already Uploaded
-                                <a target="_blank" href="<?php echo $data['pdf_link'] ?>" class="btn btn-sm btn-info">See</a>
-                            </div>
-                            <?php
-                    }
+                        </div>
+                    <?php
+                }else{
+                    echo strtoupper($data['status']); 
+                }
                 ?>
+                
+                
             </td>
         </tr>
         <?php

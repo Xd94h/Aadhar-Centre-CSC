@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h5 class="mb-0">All AAHDAAR PDF ADMIN LIST</h5>
+                        <h5 class="mb-0">All RASAN PDF LIST</h5>
                     </div>
                    
                 </div>
@@ -18,64 +18,46 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="text-center">SL.</th>
-                                <th class="text-center">Appliedby</th>
-                                <th class="text-center">Retailer No</th>
-                                <th class="text-center">Apply Date</th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Aadhaar No</th>
-                               <th class="text-center">Date of Birth</th>
-                               
-                                
-                                <th class="text-center">Action</th>
+                                <th class="text-center">PAN NUMBER</th>
+                                <th class="text-center">FATHER</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">PRINT</th>
+                                <th class="text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
                            
-<?php
-$res = mysqli_query($ahk_conn,"SELECT * FROM aadhaar_pdf  ORDER BY id DESC");
-if(mysqli_num_rows($res)>0){
-    $x=0;
-    while($data = mysqli_fetch_assoc($res)){
-        $x ++;
+                          
+         <?php
+         $res = mysqli_query($ahk_conn,"SELECT * FROM panauto WHERE userid='".$udata['phone']."' ORDER BY id DESC");
+         if(mysqli_num_rows($res)>0){
+             $x=0;
+             while($data = mysqli_fetch_assoc($res)){
+         $x ++;
         ?>
         <tr>
             <td class="text-center"><?= $x;?></td>
-            <td class="text-center"><?= $data['appliedby'];?></td>
-            <td class="text-center"><?= $data['ret_wp_no'];?></td>
-            <td class="text-center"><?= $data['apply_date'];?></td>
             <td class="text-center">
-                  <div class="ms-2">
+                <div class="d-flex align-items-center">
+                    
+                    <div class="ms-2">
                         <h6 class="mb-1 font-14"><?php echo strtoupper($data['name']); ?></h6>
                     </div>
+                </div>
             </td>
-        
-            <td class="text-center"><?php echo strtoupper($data['aadhaar_no']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['dob']); ?></td>
-            
-            <td  class="text-center">
-                <?php
-                    if($data['status']=="pending"){
-                        ?>
-                       <div style="width:250px;">
-                        <form method="POST" action="" enctype="multipart/form-data">
-                            <input class="form-control mb-2" type="text"  name="pan_no" required maxlength="12" placeholder="Enter PAN No">
-                            <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
-                            <input class="form-control mb-2" type="file" name="aadhaar_pdf" required>
-                            <button class="btn  px-6 btn-success">Update</button>
-                        </form>
-                       </div>
-                        <?php
-                    }else if($data['status']=="success"){
-                            ?>
-                            <div class="text-center text-success">
-                            <?php echo strtoupper($data['pan_no']); ?>    
-                            <br>
-                                Already Uploaded
-                                <a target="_blank" href="<?php echo $data['pdf_link'] ?>" class="btn btn-sm btn-info">See</a>
-                            </div>
-                            <?php
-                    }
-                ?>
+            <td class="text-center"><?php echo strtoupper($data['panno']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['fathername']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['create_time']); ?></td>
+            <td class="text-center">
+            <a  style="margin-top:2px;margin-bottom:2px;padding-top:2px;padding-bottom:2px;"  class="btn btn-success" href="aadharpvc/pan.php?searchid=<?php echo $data['id']?>" target="_blank"> Print </a> 
+			</td>
+            <td class="text-center">
+               <form action="action_pan_manual.php" method="post" enctype="multipart/form-data" >
+												<input name="id" type="hidden" value="<?=$data['id']?>" />
+												<input style="margin-top:2px;margin-bottom:2px;padding-top:2px;padding-bottom:2px;" class="btn btn-danger" type="submit" value="Remove" />
+											</form> 
+
             </td>
         </tr>
         <?php
@@ -124,7 +106,6 @@ $(function() {
 <script>
 		$(document).ready(function() {
 			$('#example').DataTable();
-            $('#aadh').inputmask();
 		  } );
 	</script>
 	
@@ -138,8 +119,6 @@ $(function() {
 			table.buttons().container()
 				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
 		} );
-
-
 	</script>
 	
 </body>

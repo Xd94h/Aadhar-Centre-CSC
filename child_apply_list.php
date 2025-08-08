@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h5 class="mb-0">Rasan Details TO AADHAAR NO LIST</h5>
+                        <h5 class="mb-0">All NEW PAN PDF LIST</h5>
                     </div>
                    
                 </div>
@@ -19,13 +19,10 @@
                             <tr>
                                 <th class="text-center">SL.</th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Rasan</th>
-                                <th class="text-center">Family aadhaar</th>
-                                <th class="text-center">state</th>
-                                <th class="text-center">District</th>
-                                <th class="text-center">Block</th>
-                                <th class="text-center">Village</th>
-                                <th class="text-center">AADHAAR No</th>
+                                <th class="text-center">APPLICATION NUMBER</th>
+                                <th class="text-center">MOBILE No.</th>
+                                <th class="text-center">FATHER NAME</th>
+                                <th class="text-center">STATUS</th>
                                 <th class="text-center">Status</th>
                             </tr>
                         </thead>
@@ -37,7 +34,7 @@ if(isset($_GET['apid'])&& $_GET['track'] =='true'){
     $application_no = getSafe($_GET['apid']); // Application Number base64 Encoded
         $api_key = $webdata['nsdl_api_key']; // API Key  from https://apizone.in/dashboard/account/api-keys
 
-        $url = 'https://apizone.in/api/v1/services/aadhaar_no/track_no.php?application_no='.$application_no.'&api_key='.$api_key;
+        $url = 'https://apizone.in/api/v1/services/aadhaar_pdf/track_pdf.php?application_no='.$application_no.'&api_key='.$api_key;
         $curl = curl_init();
         curl_setopt_array($curl, array(
         CURLOPT_URL => $url,
@@ -54,8 +51,8 @@ if(isset($_GET['apid'])&& $_GET['track'] =='true'){
         $response;
         $resdata = json_decode($response,true);
         if($resdata['status'] == '1'){
-            if(ahkQuery("UPDATE aadhaar_no SET aadhaar_no='".$resdata['aadhaar_no']."', status='success' WHERE application_no='$apid' ")){
-                showAlert('Aadhaar no generated', $resdata['aadhaar_no'],'success');
+            if(ahkQuery("UPDATE pan_card_applications SET aadhaar_no='".$resdata['aadhaar_no']."', status='success', pdf_link='".$resdata['pdf_link']."'  WHERE application_no='$apid' ")){
+                showAlert('Aadhaar PDF generated', $resdata['aadhaar_no'],'success');
             }else{
                 showAlert('Something Went Wrong','','error');
             }
@@ -63,7 +60,7 @@ if(isset($_GET['apid'])&& $_GET['track'] =='true'){
             showAlert($resdata['status'], $resdata['message'],'error');
         }
 }
-$res = mysqli_query($ahk_conn,"SELECT * FROM rasan_to_aadhar_pdf WHERE appliedby='".$udata['phone']."'  ORDER BY id DESC");
+$res = mysqli_query($ahk_conn,"SELECT * FROM child_enrolloment WHERE appliedby='".$udata['phone']."'  ORDER BY id DESC");
 if(mysqli_num_rows($res)>0){
     $x=0;
     while($data = mysqli_fetch_assoc($res)){
@@ -75,23 +72,20 @@ if(mysqli_num_rows($res)>0){
                 <div class="d-flex align-items-center">
                     
                     <div class="ms-2">
-                        <h6 class="mb-1 font-14"><?php echo strtoupper($data['name']); ?></h6>
+                        <h6 class="mb-1 font-14"><?php echo strtoupper($data['ChildName']); ?></h6>
                     </div>
                 </div>
             </td>
-            <td class="text-center"><?php echo strtoupper($data['rasan']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['aadhaar']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['state']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['district']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['block']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['village']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['application_no']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['MobileNumber']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['ChildFatherName']); ?></td>
             <td class="text-center"><?php
             if(!$data['aadhaar_no'] ==NULL){
                 ?>
-                <b><?php echo strtoupper($data['aadhaar_no']); ?></b>
+                <?php echo strtoupper($data['aadhaar_no']); ?>
                 <?php
             }else{
-                echo "Aadhaar Not generated Yet.";
+                echo "Pdf Not generated Yet.";
             }
             ?></td>
             <td class="text-center">
@@ -99,15 +93,13 @@ if(mysqli_num_rows($res)>0){
                     if($data['status']=="pending"){
                         ?>
                         <div class="badge rounded-pill bg-light-warning text-warning w-100">Pending...
-                        <div class="">
-                        <a href="https://wa.me/917481887848" class="btn btn-success">Check Status</a>
-                        </div>
                         </div>
                         <?php
                     }else if($data['status']=="success"){
                             ?>
-                             <div class="badge rounded-pill bg-light-success text-success w-100">Success
-                        </div>
+                            <div class="text-center">
+                                <a download href="<?php echo $data['pdf_link'] ?>" class="btn btn-sm btn-success">Download PDF</a>
+                            </div>
                             <?php
                     }
                 ?>

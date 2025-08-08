@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h5 class="mb-0">Rasan Details TO AADHAAR NO LIST</h5>
+                        <h5 class="mb-0">MOBILE LINK TO VOTER</h5>
                     </div>
                    
                 </div>
@@ -18,52 +18,22 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="text-center">SL.</th>
+                                <th class="text-center">Applied by</th>
+                                <th class="text-center">Retailer No</th>
+                                <th class="text-center">Apply Date</th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Rasan</th>
-                                <th class="text-center">Family aadhaar</th>
-                                <th class="text-center">state</th>
-                                <th class="text-center">District</th>
-                                <th class="text-center">Block</th>
-                                <th class="text-center">Village</th>
-                                <th class="text-center">AADHAAR No</th>
-                                <th class="text-center">Status</th>
+                                <th class="text-center">EPIC NUMBER</th>
+                                <th class="text-center">MOBILE NO</th>
+                                <th class="text-center">State</th>
+                                <th class="text-center"></th>
+                                
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                            
 <?php
-if(isset($_GET['apid'])&& $_GET['track'] =='true'){
-    $apid = base64_decode(getSafe($_GET['apid']));
-    $application_no = getSafe($_GET['apid']); // Application Number base64 Encoded
-        $api_key = $webdata['nsdl_api_key']; // API Key  from https://apizone.in/dashboard/account/api-keys
-
-        $url = 'https://apizone.in/api/v1/services/aadhaar_no/track_no.php?application_no='.$application_no.'&api_key='.$api_key;
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $response;
-        $resdata = json_decode($response,true);
-        if($resdata['status'] == '1'){
-            if(ahkQuery("UPDATE aadhaar_no SET aadhaar_no='".$resdata['aadhaar_no']."', status='success' WHERE application_no='$apid' ")){
-                showAlert('Aadhaar no generated', $resdata['aadhaar_no'],'success');
-            }else{
-                showAlert('Something Went Wrong','','error');
-            }
-        }else{
-            showAlert($resdata['status'], $resdata['message'],'error');
-        }
-}
-$res = mysqli_query($ahk_conn,"SELECT * FROM rasan_to_aadhar_pdf WHERE appliedby='".$udata['phone']."'  ORDER BY id DESC");
+$res = mysqli_query($ahk_conn,"SELECT * FROM votermobile_link  ORDER BY id DESC");
 if(mysqli_num_rows($res)>0){
     $x=0;
     while($data = mysqli_fetch_assoc($res)){
@@ -71,43 +41,40 @@ if(mysqli_num_rows($res)>0){
         ?>
         <tr>
             <td class="text-center"><?= $x;?></td>
+            <td class="text-center"><?= $data['appliedby'];?></td>
+            <td class="text-center"><?= $data['ret_wp_no'];?></td>
+            <td class="text-center"><?= $data['apply_date'];?></td>
             <td class="text-center">
-                <div class="d-flex align-items-center">
-                    
-                    <div class="ms-2">
+                  <div class="ms-2">
                         <h6 class="mb-1 font-14"><?php echo strtoupper($data['name']); ?></h6>
                     </div>
-                </div>
             </td>
-            <td class="text-center"><?php echo strtoupper($data['rasan']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['aadhaar']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['rasan_no']); ?></td>
+            <td class="text-center"><?php echo strtoupper($data['date']); ?></td>
             <td class="text-center"><?php echo strtoupper($data['state']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['district']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['block']); ?></td>
-            <td class="text-center"><?php echo strtoupper($data['village']); ?></td>
-            <td class="text-center"><?php
-            if(!$data['aadhaar_no'] ==NULL){
-                ?>
-                <b><?php echo strtoupper($data['aadhaar_no']); ?></b>
-                <?php
-            }else{
-                echo "Aadhaar Not generated Yet.";
-            }
-            ?></td>
-            <td class="text-center">
+            <td class="text-center"><?php echo strtoupper($data['time']); ?></td>
+            
+            <td  class="text-center">
                 <?php
                     if($data['status']=="pending"){
                         ?>
-                        <div class="badge rounded-pill bg-light-warning text-warning w-100">Pending...
-                        <div class="">
-                        <a href="https://wa.me/917481887848" class="btn btn-success">Check Status</a>
-                        </div>
-                        </div>
+                       <div style="width:250px;">
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            <input class="form-control mb-2" type="text" id="aadh" data-inputmask="'mask': '9999 9999 9999'"  name="aadhaar_no" required maxlength="12" placeholder="Enter Aadhaar No">
+                            <input type="hidden" name="id" value="<?php echo $data['id'] ?>">
+                            <input class="form-control mb-2" type="file" name="aadhaar_pdf" required>
+                            <button class="btn  px-6 btn-success">Update</button>
+                        </form>
+                       </div>
                         <?php
                     }else if($data['status']=="success"){
                             ?>
-                             <div class="badge rounded-pill bg-light-success text-success w-100">Success
-                        </div>
+                            <div class="text-center text-success">
+                            <?php echo $data['aadhaar_no']; ?>    
+                            <br>
+                                Already Uploaded
+                                <a target="_blank" href="<?php echo $data['pdf_link'] ?>" class="btn btn-sm btn-info">See</a>
+                            </div>
                             <?php
                     }
                 ?>
@@ -159,6 +126,7 @@ $(function() {
 <script>
 		$(document).ready(function() {
 			$('#example').DataTable();
+            $('#aadh').inputmask();
 		  } );
 	</script>
 	
@@ -172,6 +140,8 @@ $(function() {
 			table.buttons().container()
 				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
 		} );
+
+
 	</script>
 	
 </body>

@@ -1,10 +1,9 @@
-<?php
+ <?php
 include('header.php');
+
+include('../../includes/config.php');
 ?>
      	<!--start page wrapper -->
-     	
-     	<!--Design by Hkb Web Developing - https://hkbwebdeveloping.tech-->
-     	
 		<div class="page-wrapper">
 			<div class="page-content">
 				<!--breadcrumb-->
@@ -35,17 +34,17 @@ include('header.php');
 				<!--end breadcrumb-->
 				<div class="row">
 					<div class="col-xl-10 mx-auto">
-						<h6 class="mb-0 text-uppercase">Voter Advance</h6>
+						<h6 class="mb-0 text-uppercase">Voter Original</h6>
 						<hr/>
 						<div class="card border-top border-0 border-4 border-primary">
 							<div class="card-body p-5">
 								<div class="card-title d-flex align-items-center">
 									<div><i class="bx bxs-id-card me-1 font-22 text-primary"></i>
 									</div>
-									<h5 class="mb-0 text-primary">Fetch Voter Details</h5>
+									<h5 class="mb-0 text-primary">Enter Voter Details</h5>
 								</div>
 								<hr>
-<script type="text/javascript">
+ <script type="text/javascript">
      function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -93,15 +92,20 @@ function setaddress(){
   document.getElementById('txtSource').innerHTML = galimn + locality + " Police Station-" + policestation + ", Tahshil-" + tahshil + ", District-" + dist + ", Pin Code-" + pincode;
 }
 </script>
- 
+         <!-- /# row -->
+            <section id="main-content">
+              <div class="row">
+
 <?php
         if(isset($_POST['submit'])) {                         
            $epic =$_POST['epicno']; 
-           $filedata =$_POST['filedata']; 
-           $server=$_SERVER['SERVER_NAME'];
-  $curl = curl_init();
-  curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://$axen_api/serviceApi/V1/Voter-verification.php?epic=$epic&apiKey=$axen_key",
+          $filedata =$_POST['filedata']; 
+ $server=$_SERVER['SERVER_NAME'];
+ $userid="JmgTFQ4g-Kv5l-aRVc-ls9r-heGoQl62Kfnrn8sv";
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://axenapi.online/Dashboard/Verify_api/v_org/v_o_1.php?epicno=$epic&api=$userid",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -114,33 +118,31 @@ function setaddress(){
   ),
 ));
 
-$response = curl_exec($curl);
-//print_r($response);
+ $response = curl_exec($curl);
 $err = curl_error($curl);
+
 curl_close($curl);
 
-if ($err) {
-  echo "cURL Error #:" . $err;
-} 
-else
-{
+
  $json =  json_decode($response,true);
-$status = $json["response"]["docs"];
+ //print_r($response);
+ $image=$json['image'];
+$status = $json["data"]["response"]["docs"];
 $a = $status["0"];
-$statuss=$a['status'];
-$errorss=$json['error'];
-if ($statuss === 'true') {
- $price = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='voter_manual_hkb' "));
- $appliedby = $udata['phone'];   
- $fee = $price['price'];
- $debit = mysqli_query($ahk_conn,"UPDATE users SET balance=balance-$fee WHERE phone='$appliedby'");
+$statuhs = $a['status'];
+$check_name = $a['name'];
+ if ($statuhs === 'true' && $check_name !=='') {
+     
+
+ $price = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='voter_original_fee' "));
+              $appliedby = $udata['phone'];   
+                  $fee = $price['price'];
+                  $debit = mysqli_query($ahk_conn,"UPDATE users SET balance=balance-$fee WHERE phone='$appliedby'");
  } else{
- 
-      echo "<script> alert('$errorss | Failed') </script>";
+      echo "<script> alert('Voter Data Not Fetched Please Try Again After Sometime') </script>";
 
 }
 
-}
                                             
               $assco_name       = $a["ac_name"];
               $assco_no         = $a["ac_no"];
@@ -164,7 +166,7 @@ if ($statuss === 'true') {
               $dist_name        = $a["district"];
               $tehsil           = $a["ac_name"];
               $state            = $a["state"];
-              $dist_local      = $a["dist_name_v1"];
+              $dist_name_v1      = $a["dist_name_v1"];
               $age              = $a["age"];
               $relation_type    = $a["rln_type"];
               $ac_name_local    = $a["ac_name_v1"];
@@ -175,12 +177,16 @@ if ($statuss === 'true') {
               {
               $reln_type = "Husband";
               }
-              
-        }                                        
+        }         
+                                                
 ?>
+
 
                             <?php 
                               if(isset($_POST['savedata'])) { 
+                               //print_r($_POST);
+             //print_r($_FILES);
+             //die;
                                $name = strtoupper(trim($_POST['name']));
                                $aadharname = trim($_POST['aadharname']);
                                $namelocal = trim($_POST['namelocal']);
@@ -200,9 +206,10 @@ if ($statuss === 'true') {
                                $partno = trim($_POST['partno']);
                                $partname = trim($_POST['partname']);
                                $partnamelocal = trim($_POST['partnamelocal']);
-                               $target_dir = "uploads/";
+                               
+                 $target_dir = "uploads/";
                                $target_file = $target_dir . basename($_FILES["file_up"]["name"]);
-                               $hsrc = $_POST['img_vl'];
+                 $hsrc = $_POST['img_vl'];
                                $address = trim($_POST['address']);
                                $localaddress = trim($_POST['addresslocal']);
                                $language = trim($_POST['language']);
@@ -214,20 +221,20 @@ if ($statuss === 'true') {
                  
                                $assconnamenolocal = trim($_POST['assconnamenolocal']);
                                $partnoandnamelocal = trim($_POST['partnoandnamelocal']);
-                               $user_image = $_POST['image_data'];
+             $user_image = $_POST['image_data'];
                                                        
                                $s = date($fetch['joindate']);
-                               $dt = new DateTime($s);
+$dt = new DateTime($s);
 
-                               $date = $dt->format('Y-m-d');
+$date = $dt->format('Y-m-d');
 
                                if ($name=="") {
                                    $msgno = 'Please Enter Voter Name .... ';
                                } 
-                               else if($fetch['mfee'] == 0 and $fetch['balance'] > 20 and $date <= '2019-12-16')
-                               {
-                                 $msgno = 'Pay Maintaince Fee First!!!';
-                               }
+                  else if($fetch['mfee'] == 0 and $fetch['findwallet'] > 20 and $date <= '2019-12-16')
+{
+  $msgno = 'Pay Maintaince Fee First!!!';
+}
                                elseif ($namelocal=="") {
                                 $msgno = 'Please Enter Voter Name in Local Language .... ';
                                }
@@ -259,21 +266,22 @@ if ($statuss === 'true') {
                                 $msgno = 'Please Enter Address in Local Language  .... ';
                                } 
                                else { 
-                                   $a = mysqli_query($ahk_conn,"SELECT epicno FROM voterauto1 Where epicno='".$epicno."'");
+                                   $a = mysqli_query($ahk_conn,"SELECT epicno FROM voterauto2 Where epicno='".$epicno."'");
                                    $b = mysqli_fetch_array($a);
                                   
                                     
                                     /// insert value
 
-                                    $resultm = mysqli_query($ahk_conn,"SELECT srno FROM voterauto1 ORDER BY srno DESC LIMIT 1");
-                                    $num_rows = mysqli_fetch_array($resultm);
-                                    $srno = $num_rows['srno']+1;
-                                    date_default_timezone_set('Asia/Kolkata');
-                                    $timestamp = date("Y-m-d H:i:s");
-                                    $query="";
-                                     $query = " INSERT INTO `voterauto1`( `votername`, `aadharname`, `namelocal`,
-                                    `dob`, `dobinlocal`, `gender`, `genderlocal`, `sexlocal`, `spousename`, `spousenamelocal`, 
-                                    `fathername`, `fatheraadharname`, `fathernamelocal`, `epicno`, `policestation`, `tahshil`,
+                                    $resultm = mysqli_query($ahk_conn,"SELECT srno FROM voterauto2 ORDER BY srno DESC LIMIT 1");
+                          $num_rows = mysqli_fetch_array($resultm);
+                          $srno = $num_rows['srno']+1;
+                                  date_default_timezone_set('Asia/Kolkata');
+                                  $timestamp = date("Y-m-d H:i:s");
+                                  
+                                //   voter original fee code start
+                                
+                                 $query="";
+                                     $query = " INSERT INTO `voterauto2`( `votername`, `aadharname`, `namelocal`,`dob`, `dobinlocal`, `gender`, `genderlocal`, `sexlocal`, `spousename`, `spousenamelocal`, `fathername`, `fatheraadharname`, `fathernamelocal`, `epicno`, `policestation`, `tahshil`,
                                     `assconnonm`, `assconnonmlocal`, `partno`, `partname`, `partnamelocal`, `locallanguage`,
                                     `fulladdress`, `localaddress`, `pata`, `kaname`, `sign`, `signlocal`, `assconnameno`,
                                     `assconnamenolocal`, `partnoandname`, `partnoandnamelocal`, `imagepathoriginal`,
@@ -285,49 +293,65 @@ if ($statuss === 'true') {
                                     '".$address."',N'".$localaddress."',N'".$patalocal."',N'".$kanamelocal."','".$sign."',N'".$signlocal."','Assembly Constituency No. & Name',
                                     N'".$assconnamenolocal."','Part No and Name',N'".$partnoandnamelocal."','".$user_image."',
                                     'PENDING','".$srno."','".$timestamp."','".$_SESSION['phone']."')";
-                                     // echo $query;
+                                     }
+                                                
+                    // echo $query;
+                  // move_uploaded_file($_FILES["file_up"]["tmp_name"], $target_file);
                                       $result = mysqli_query($ahk_conn, $query);  
                                        $last_id = mysqli_insert_id($ahk_conn);
                                        $_SESSION["IMGPATH"]='';
                                        $_SESSION["epicno"]=$epicno;
+if ($result) {
+    echo '<script>
+        $(function(){
+            Swal.fire(
+                "' . $msg . '",
+                "",
+                "success"
+            );
+        });
+        setTimeout(function () {
+            window.location = "voteroriginallist.php";
+        }, 1200);
+    </script>';
+}
 
-                                     $msg = "Please Wait Voter Priveiw just a second....";
-                                     
-                                        if ($result) {
-                                           echo '<script>
-                                               $(function(){
-                                                   Swal.fire(
-                                                       "' . $msg . '",
-                                                       "",
-                                                       "success"
-                                                   );
-                                               });
-                                               setTimeout(function () {
-                                                   window.location = "voter_adv_hkb_list.php";
-                                               }, 1200);
-                                           </script>';
-                                       }      ?>
-                                        <?php
-                                        mysqli_set_charset($ahk_conn,"utf8");
-                                    $a = mysqli_query($ahk_conn,"SELECT * FROM voterauto1 Where epicno='".$_SESSION["epicno"]."'");
+                      mysqli_set_charset($ahk_conn,"utf8");
+                                    $a = mysqli_query($ahk_conn,"SELECT * FROM voterauto2 Where epicno='".$_SESSION["epicno"]."'");
                                     $b = mysqli_fetch_array($a);
 
                                     $remark="";
                                     $remark= 'Voter Card No : '.$b['epicno'].' Voter Name : '.$b['votername'] ;
                                     // strat less point
                                     //  Dr amount start
-                                    $getpoint = mysqli_fetch_assoc(mysqli_query($ahk_conn,"select * from users where userid=".$_SESSION['phone'].""));
+                                        $getpoint = mysqli_fetch_assoc(mysqli_query($ahk_conn,"select * from users where userid=".$_SESSION['phone'].""));
                   
                                     $qu = "";
                                     $qu = "INSERT INTO `tbltrans`(`userid`, `username`, `transdate`, `transqty`, `transtype`, `touserid`, `tousername`, `remark`, `loginid`, `logdate`)
                                     VALUES ('".$_SESSION['phone']."','".$_SESSION['username']."',now(),'".$getpoint['aadharpoint']."','Dr','0','Voter Create','".$remark."','".$_SESSION['phone']."',now())";
                                     $a1q=mysqli_query($ahk_conn,$qu);
+                                    //  Dr amount end
+                                   // end point
 
+
+                                   //echo $b['wamt'];
+                  // start led wallet
                   
-?>
-<?php }
-}
-?>
+                  
+
+                                    $sql="";
+                  
+                  
+                    ?>
+                    
+                    <?php 
+                   
+                                   
+                                   
+                               }
+
+                              
+                            ?>
                 
                 <?php if($msg !='') { ?>
                   <div style="width=100%"  class="row cvmsgok"><?php echo $msg; ?></div>
@@ -363,8 +387,8 @@ if ($statuss === 'true') {
                                                 <div class="col-sm-4 col-xs-12">
                                                     <label style="margin-top: 15px;">Image</label>
                                                     <div class="image-preview" id="">
-                                                    <img  class="image-preview__image" id="blah" name="blah" src="<?php echo $filedata ;?>" />
-                                                    <input  class="form-control" name="image_data" type="hidden" value="<?php echo $filedata ;?>" require>
+                                                    <img  class="image-preview__image" id="blah" name="blah" src="<?php echo $image ;?>" />
+                                                    <input  class="form-control" name="image_data" type="hidden" value="<?php echo $image ;?>" require>
                                                     </div>
                                                 </div>
                                        <!-- <label>Upload Photo </label>
@@ -929,7 +953,7 @@ if ($statuss === 'true') {
 </div>
 
 
-  <style>
+ <style>
                 
                 .content-wrap {
     
@@ -1104,8 +1128,9 @@ function getBase64(file) {
     text-transform: capitalize;
 }
  </style>
- 
- 	<!--end page wrapper -->
+ 						
+								
+	<!--end page wrapper -->
 		<?php 
 		include('footer.php');
 		?>
